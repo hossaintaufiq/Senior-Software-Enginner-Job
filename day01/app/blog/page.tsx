@@ -1,8 +1,9 @@
 
+
 const page = () => {
   return (
     <div>
-      <h2>Hello from About Page</h2>
+      <h2>Hello from Blog Page</h2>
     </div>
   )
 }
