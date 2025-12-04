@@ -21,7 +21,7 @@ export default function RootLayout({
       <body className="bg-green-200">
         <Navbar/>
         
-       <main className="mx-auto max-w-7xl pt-4  h-screen">{children}</main>
+       <main className="mx-auto max-w-7xl">{children}</main>
        <Footer/>
       </body>
     </html>

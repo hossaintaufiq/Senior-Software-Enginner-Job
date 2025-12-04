@@ -4,7 +4,8 @@ export default function Footer() {
   return (
     <footer className="w-full bg-white shadow-md mt-8 flex justify-around  h-auto p-4">
       <div className="">
-        <img src="/logo.png" alt="company logo" />
+        {/* <img src="/logo.png" alt="company logo" /> */}
+        
         <p className="text-gray-600">&copy; 2024 Day01. All rights reserved.</p>
       </div>
       <div>

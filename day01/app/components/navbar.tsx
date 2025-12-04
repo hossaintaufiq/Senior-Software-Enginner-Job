@@ -13,18 +13,18 @@ export default function Navbar() {
         {/* for the navigation links */}
 
         <div className="flex gap-8">
-          <Link href="/" className="ml-4">Home</Link>
-          <Link href="/about" className="ml-4">
+          <Link href="/" className="ml-4 hover:text-amber-200">Home</Link>
+          <Link href="/about" className="ml-4 hover:text-amber-200">
             About
           </Link>
-          <Link href="/contact" className="ml-4">
+          <Link href="/contact" className="ml-4 hover:text-amber-200">
             Contact
           </Link>
-          <Link href="/blog" className="ml-4">
+          <Link href="/blog" className="ml-4 hover:text-amber-200 ">
             Blog
             
           </Link>
-          <Link href="/products" className="ml-4">
+          <Link href="/products" className="ml-4 hover:text-amber-200">
             Products
           </Link>
         </div>
