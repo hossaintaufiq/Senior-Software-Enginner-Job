@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Navbar from "./components/navbar";
 import "./globals.css";
+import Footer from "./components/footer";
 
 
 
@@ -20,7 +21,8 @@ export default function RootLayout({
       <body className="bg-green-200">
         <Navbar/>
         
-       <main >{children}</main>
+       <main className="mx-auto max-w-7xl pt-4  h-screen">{children}</main>
+       <Footer/>
       </body>
     </html>
   );
