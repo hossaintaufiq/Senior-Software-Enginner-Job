@@ -1,5 +1,6 @@
 import Header from "@/component/Header";
 import Posts from "@/component/post";
+import Users from "@/component/Users";
 
 export default  function Home() {
   return (
@@ -11,8 +12,10 @@ export default  function Home() {
       />
 
       {/*  calling an api and fetching data from it */}
-      <h1>this is a home page</h1>
-      <Posts />
+      <h1 className="flex justify-center items-center font-bold mt-4">Home Page</h1>
+      {/* <Posts /> */}
+      <Users />
+
     </div>
   );
 }
