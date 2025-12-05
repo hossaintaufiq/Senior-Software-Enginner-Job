@@ -24,8 +24,8 @@ export default async function Users() {
     return <>
     <h1 className="flex justify-center items-center font-bold mt-4">Users</h1>
     {
-        data.map((user)=>(
-            <div key={user.id} className="border border-amber-600 p-2 ">
+        data.slice(0,5).map((user)=>(
+            <div key={user.id} className="border border-amber-600 p-2 m-2 bg-green-200 rounded-2xl">
                 <h2 className="font-bold">Name: {user.name}</h2>
                 <p>Email:{user.email}</p>
                 <p>Phone: {user.phone}</p>
