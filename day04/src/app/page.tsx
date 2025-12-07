@@ -2,7 +2,7 @@ import Link from "next/link";
 export default function Home() {
   return (
     <div className="p-4">
-      <h1 className="text-center p-2">Day 04 starting</h1>
+      <h1 className="text-center p-2 bg-amber-300">Day 04 starting</h1>
       <p className="flex justify-center items-center flex-col py-2">
         Goals Today
       </p>
