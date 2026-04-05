@@ -47,12 +47,28 @@ app.get('/productList',(req,res)=>{
     
 })
 
+// app.get('/products',(req,res)=>{
+//     res.json(products);
+// })
+
+
+// getting method with query parameter and geing data with the name or string ; 
+
 app.get('/products',(req,res)=>{
-    res.json(products);
+    const name=req.query.name; 
+
+    console.log(req.query);
+
+    if(name){
+        const filteredProducts= products.filter(p=>p.name.toLowerCase().includes(name.toLowerCase()));
+        res.json(filteredProducts);
+    }else{
+        res.json(products)
+    }
 })
 
-
 // Dynamic route to get a product by id : 
+// this is for getting a single product by id or we can say it is a getting method dynamically 
 app.get('/products/:id',(req,res)=>{    
     const id=parseInt(req.params.id);
     const product=products.find(p=>p.id===id);      
@@ -64,7 +80,7 @@ app.get('/products/:id',(req,res)=>{
     }               
 })
 
-
+// this id for creating a new product or we can say it is creating method 
 app.post('/products',(req,res)=>{
     const newProduct=req.body;
 
@@ -77,7 +93,7 @@ app.post('/products',(req,res)=>{
     });
 })
 
-
+// this is for updating any product or update method 
 app.put('/products/:id',(req,res)=>{
     const id = parseInt(req.params.id);
     const index= products.findIndex(p=>p.id===id); 
@@ -113,6 +129,7 @@ app.put('/products/:id',(req,res)=>{
 //   });
 // });
 
+// for deleting something from the list or we can say it is deleting method 
 app.delete('/products/:id',(req,res)=>{
     const id = parseInt(req.params.id); 
 
