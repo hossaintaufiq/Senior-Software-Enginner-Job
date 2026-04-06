@@ -23,7 +23,20 @@ export function Welcome() {
     const email= formData.email.value; 
     const userData = { name, email };
 
-    console.log(userData)
+    console.log(userData); 
+    fetch("http://localhost:3000/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userData),
+    })
+    .then((res) => res.json())
+    .then((newUser) => {
+      formData.reset();
+      setUsers([...users, newUser]);
+    });
+
 
   }
 
