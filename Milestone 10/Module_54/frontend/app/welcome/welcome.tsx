@@ -33,8 +33,9 @@ export function Welcome() {
     })
     .then((res) => res.json())
     .then((newUser) => {
-      formData.reset();
+      // formData.reset();
       setUsers([...users, newUser]);
+      formData.reset();
     });
 
 
