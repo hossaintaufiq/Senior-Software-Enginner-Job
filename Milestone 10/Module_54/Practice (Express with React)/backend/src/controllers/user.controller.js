@@ -17,3 +17,13 @@ exports.getUserById=(req,res)=>{
     }
     res.json(userData);
 }
+exports.createUser=(req,res)=>{
+    const {name,email}= req.body
+    const newUser={
+        id:user.length+1,
+        name:name,  
+        email:email
+    }
+    user.push(newUser)
+    res.status(201).json(newUser)
+}
