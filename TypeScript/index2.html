@@ -1,11 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Target Rush</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    
+<body class="min-h-screen bg-slate-950 text-white">
+  <main class="mx-auto flex max-w-5xl flex-col items-center px-4 py-8">
+    <div class="w-full rounded-3xl border border-white/10 bg-white/10 p-6 shadow-2xl backdrop-blur">
+      <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <div>
+          <p class="text-sm uppercase tracking-[0.3em] text-cyan-300">Tailwind Arcade</p>
+          <h1 class="text-3xl font-semibold sm:text-4xl">Target Rush</h1>
+          <p class="mt-2 max-w-xl text-sm text-slate-300">
+            Click the glowing orb as many times as you can before the timer hits zero.
+          </p>
+        </div>
+        <button id="startBtn" class="rounded-full bg-cyan-500 px-5 py-3 font-semibold text-slate-950 transition hover:bg-cyan-400">
+          Start Game
+        </button>
+      </div>
+
+      <div class="mt-6 grid gap-4 md:grid-cols-3">
+        <div class="rounded-2xl bg-slate-900/70 p-4">
+          <p class="text-sm uppercase text-slate-400">Score</p>
+          <p id="score" class="mt-2 text-3xl font-bold">0</p>
+        </div>
+        <div class="rounded-2xl bg-slate-900/70 p-4">
+          <p class="text-sm uppercase text-slate-400">Time Left</p>
+          <p id="time" class="mt-2 text-3xl font-bold">15s</p>
+        </div>
+        <div class="rounded-2xl bg-slate-900/70 p-4">
+          <p class="text-sm uppercase text-slate-400">Best</p>
+          <p id="best" class="mt-2 text-3xl font-bold">0</p>
+        </div>
+      </div>
+
+      <div id="gameZone" class="relative mt-6 h-[420px] overflow-hidden rounded-3xl border border-cyan-400/30 bg-[radial-gradient(circle_at_top,_rgba(34,211,238,0.16),_transparent_55%),linear-gradient(135deg,_rgba(15,23,42,1),_rgba(2,6,23,1))]">
+        <div id="overlay" class="absolute inset-0 z-10 flex flex-col items-center justify-center bg-slate-950/70 px-6 text-center">
+          <h2 class="text-2xl font-semibold">Ready to play?</h2>
+          <p class="mt-2 max-w-md text-sm text-slate-300">Press start and hit the target before time runs out.</p>
+        </div>
+
+        <button
+          id="target"
+          class="absolute hidden h-16 w-16 rounded-full border-4 border-cyan-200 bg-cyan-400 shadow-[0_0_35px_rgba(34,211,238,0.9)] transition duration-200 hover:scale-110 focus:outline-none"
+          aria-label="Target"
+        ></button>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const startBtn = document.getElementById('startBtn');
+    const scoreEl = document.getElementById('score');
+    const timeEl = document.getElementById('time');
+    const bestEl = document.getElementById('best');
+    const overlay = document.getElementById('overlay');
+    const target = document.getElementById('target');
+    const gameZone = document.getElementById('gameZone');
+
+    let score = 0;
+    let timeLeft = 15;
+    let bestScore = 0;
+    let timerId = null;
+    let moveId = null;
+    let playing = false;
+
+    function updateScoreboard() {
+      scoreEl.textContent = score;
+      timeEl.textContent = `${timeLeft}s`;
+      bestEl.textContent = bestScore;
+    }
+
+    function moveTarget() {
+      if (!playing) return;
+
+      const targetSize = 64;
+      const zoneRect = gameZone.getBoundingClientRect();
+      const maxX = Math.max(0, zoneRect.width - targetSize);
+      const maxY = Math.max(0, zoneRect.height - targetSize);
+
+      const x = Math.floor(Math.random() * maxX);
+      const y = Math.floor(Math.random() * maxY);
+
+      target.style.left = `${x}px`;
+      target.style.top = `${y}px`;
+      target.classList.remove('hidden');
+    }
+
+    function startGame() {
+      score = 0;
+      timeLeft = 15;
+      playing = true;
+      overlay.classList.add('hidden');
+      updateScoreboard();
+      moveTarget();
+
+      clearInterval(timerId);
+      clearInterval(moveId);
+
+      timerId = setInterval(() => {
+        timeLeft -= 1;
+        updateScoreboard();
+
+        if (timeLeft <= 0) {
+          endGame();
+        }
+      }, 1000);
+
+      moveId = setInterval(moveTarget, 650);
+    }
+
+    function endGame() {
+      playing = false;
+      clearInterval(timerId);
+      clearInterval(moveId);
+      target.classList.add('hidden');
+      overlay.classList.remove('hidden');
+      overlay.innerHTML = `
+        <div class="max-w-sm rounded-2xl border border-cyan-400/30 bg-slate-900/90 p-6">
+          <h2 class="text-2xl font-semibold">Time's up!</h2>
+          <p class="mt-2 text-sm text-slate-300">You scored <span class="font-semibold text-cyan-300">${score}</span> targets.</p>
+          <button id="playAgain" class="mt-4 rounded-full bg-cyan-500 px-4 py-2 font-semibold text-slate-950 hover:bg-cyan-400">
+            Play Again
+          </button>
+        </div>
+      `;
+
+      if (score > bestScore) {
+        bestScore = score;
+      }
+      updateScoreboard();
+
+      document.getElementById('playAgain').addEventListener('click', startGame);
+    }
+
+    target.addEventListener('click', () => {
+      if (!playing) return;
+      score += 1;
+      if (score > bestScore) {
+        bestScore = score;
+      }
+      updateScoreboard();
+      moveTarget();
+    });
+
+    startBtn.addEventListener('click', startGame);
+    updateScoreboard();
+  </script>
 </body>
 </html>
