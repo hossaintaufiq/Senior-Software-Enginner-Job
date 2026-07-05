@@ -1,25 +1,29 @@
  type Pizza= {
+    id:number
     name: string 
     price: number
  }
 
+
  type Order={
     id:number, 
     pizza:Pizza , 
-    status:string
+    status:'Completed'|'Not completed'|'ordered'
+
  }
  
- const menu= [
-    {name: "Margarita", price: 8}, 
-    {name: "Pepperpni", price:10}, 
-    {name: "Hawaiian", price: 10}, 
-    {name: "Veggie", price: 9}, 
+ const menu:Pizza[]= [
+    {id:1,name: "Margarita", price: 8}, 
+    {id:2,name: "Pepperpni", price:10}, 
+    {id:3,name: "Hawaiian", price: 10}, 
+    {id:4,name: "Veggie", price: 9}, 
  ]
 
 
 let cashInRegister= 100
 let nextOrderId= 1 
-const OrderQueue:Order[]= []
+const OrderQueue:Order[]= [] 
+const OrderHistory:Order[]=[]
 
 
 function addNewPizza( pizzaobj:Pizza ){
@@ -33,7 +37,7 @@ function placeOrder(pizzaName:string){
         return
     }
     cashInRegister+=selectedPizza.price
-    const newOrder={id:nextOrderId++, pizza:selectedPizza, status: "ordered"}
+    const newOrder:Order={id:nextOrderId++, pizza:selectedPizza, status: "ordered"}
     OrderQueue.push(newOrder)
     return newOrder
 }
@@ -45,15 +49,17 @@ function completeOrder(orderId: number){
     const order= OrderQueue.find(order =>order.id===orderId)
     if(!order){
         console.error(`The Pizza name $(orderId.name) is not valid`)
+        
         return
     }
     order.status = "Completed"
+    OrderHistory.push(order)
     return order
 }
 
-addNewPizza({name:"Chiken Bacon Ranch", price: 12})
-addNewPizza({name:"BBQ Chiken", price : 12})
-addNewPizza({name:"Spicy Sausage", price : 11})
+addNewPizza({id:5,name:"Chiken Bacon Ranch", price: 12})
+addNewPizza({id:6,name:"BBQ Chiken", price : 12})
+addNewPizza({id:7,name:"Spicy Sausage", price : 11})
 
 placeOrder("Chiken Bacon Ranch")
 completeOrder(1)
@@ -61,3 +67,4 @@ completeOrder(1)
 console.log("Menu: ", menu)
 console.log("Cash in Register : ", cashInRegister)
 console.log("Order Queue:  ", OrderQueue)
+console.log("Order History: ",OrderHistory)
