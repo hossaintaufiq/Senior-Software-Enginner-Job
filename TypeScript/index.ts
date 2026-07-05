@@ -57,6 +57,18 @@ function completeOrder(orderId: number){
     return order
 }
 
+function getPizzaDetail(identifier:string|number){
+    if(typeof identifier==="string" ){
+        return menu.find(pizza=>pizza.name.toLowerCase()===identifier.toLowerCase())
+    }
+    
+    return menu.find(pizza=>pizza.id===identifier)
+
+}
+
+
+
+
 addNewPizza({id:5,name:"Chiken Bacon Ranch", price: 12})
 addNewPizza({id:6,name:"BBQ Chiken", price : 12})
 addNewPizza({id:7,name:"Spicy Sausage", price : 11})
