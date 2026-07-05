@@ -25,10 +25,25 @@ const menu: Pizza[] = [
 
 
 
-function addNewPizza(pizzaobj: Pizza):void {
-  pizzaobj.id= nextPizzaId++
-  menu.push(pizzaobj)
+function addNewPizza(pizzaobj: Omit<Pizza,"id">):Pizza {
+    const newPizza:Pizza = {
+        id:nextPizzaId++,
+        ...pizzaobj
+    }
+  
+  menu.push(newPizza)
+  return newPizza
 }
+
+addNewPizza({name:"Chiken Bacon Ranch", price: 12})
+addNewPizza({name:"BBQ Chiken", price : 12})
+addNewPizza({name:"Spicy Sausage", price : 11})
+addNewPizza({name:"Spicy Sausage with beef", price : 11})
+addNewPizza({name:"Spicy Sausage with mutton", price : 11})
+
+
+
+
 
 function placeOrder(pizzaName: string):Order|undefined {
   const selectedPizza = menu.find((pizzaobj) => pizzaobj.name === pizzaName);
@@ -78,11 +93,7 @@ export function getPizzaDetail(identifier: string | number): Pizza {
   }
 }
 
-addNewPizza({name:"Chiken Bacon Ranch", price: 12})
-addNewPizza({name:"BBQ Chiken", price : 12})
-addNewPizza({name:"Spicy Sausage", price : 11})
-addNewPizza({name:"Spicy Sausage with beef", price : 11})
-addNewPizza({name:"Spicy Sausage with mutton", price : 11})
+
 
 placeOrder("Chiken Bacon Ranch")
 completeOrder(1)
