@@ -60,6 +60,16 @@ function placeOrder(pizzaName: string):Order|undefined {
   OrderQueue.push(newOrder);
   return newOrder;
 }
+// for generics started 
+function addToArray<T>(array:T[],item:T):T[]{
+    array.push(item)
+    return array 
+}
+
+addToArray<Pizza>(menu,{id:nextPizzaId++, name:"Rosted Chiken", price:13})
+addToArray<Order>(OrderQueue,{id:nextOrderId, pizza:menu[2], status:"Completed"})
+
+// Generics Ends
 
 function completeOrder(orderId: number):Order|undefined {
   const order = OrderQueue.find((order) => order.id === orderId);
@@ -100,5 +110,5 @@ completeOrder(1)
 
 console.log("Menu: ", menu)
 // console.log("Cash in Register : ", cashInRegister)
-// console.log("Order Queue:  ", OrderQueue)
+console.log("Order Queue:  ", OrderQueue)
 // console.log("Order History: ",OrderHistory)
