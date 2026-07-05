@@ -1,78 +1,78 @@
- type Pizza= {
-    id:number
-    name: string 
-    price: number
- }
+type Pizza = {
+  id: number;
+  name: string;
+  price: number;
+};
 
+type Order = {
+  id: number;
+  pizza: Pizza;
+  status: "Completed" | "Not completed" | "ordered";
+};
 
- type Order={
-    id:number, 
-    pizza:Pizza , 
-    status:'Completed'|'Not completed'|'ordered'
+const menu: Pizza[] = [
+  { id: 1, name: "Margarita", price: 8 },
+  { id: 2, name: "Pepperpni", price: 10 },
+  { id: 3, name: "Hawaiian", price: 10 },
+  { id: 4, name: "Veggie", price: 9 },
+];
 
- }
- 
- const menu:Pizza[]= [
-    {id:1,name: "Margarita", price: 8}, 
-    {id:2,name: "Pepperpni", price:10}, 
-    {id:3,name: "Hawaiian", price: 10}, 
-    {id:4,name: "Veggie", price: 9}, 
- ]
+let cashInRegister = 100;
+let nextOrderId = 1;
+const OrderQueue: Order[] = [];
+const OrderHistory: Order[] = [];
 
-
-let cashInRegister= 100
-let nextOrderId= 1 
-const OrderQueue:Order[]= [] 
-const OrderHistory:Order[]=[]
-
-
-function addNewPizza( pizzaobj:Pizza ){
-    menu.push(pizzaobj)
+function addNewPizza(pizzaobj: Pizza) {
+  menu.push(pizzaobj);
 }
 
-function placeOrder(pizzaName:string){
-    const selectedPizza= menu.find(pizzaobj=> pizzaobj.name=== pizzaName)
-    if (!selectedPizza){
-        console.error(`$(pizzaName) does not exist in the menu`)
-        return
-    }
-    cashInRegister+=selectedPizza.price
-    const newOrder:Order={id:nextOrderId++, pizza:selectedPizza, status: "ordered"}
-    OrderQueue.push(newOrder)
-    return newOrder
+function placeOrder(pizzaName: string) {
+  const selectedPizza = menu.find((pizzaobj) => pizzaobj.name === pizzaName);
+  if (!selectedPizza) {
+    console.error(`$(pizzaName) does not exist in the menu`);
+    return;
+  }
+  cashInRegister += selectedPizza.price;
+  const newOrder: Order = {
+    id: nextOrderId++,
+    pizza: selectedPizza,
+    status: "ordered",
+  };
+  OrderQueue.push(newOrder);
+  return newOrder;
 }
 
+function completeOrder(orderId: number) {
+  const order = OrderQueue.find((order) => order.id === orderId);
+  if (!order) {
+    console.error(`The Pizza name $(orderId.name) is not valid`);
 
-
-
-function completeOrder(orderId: number){
-    const order= OrderQueue.find(order =>order.id===orderId)
-    if(!order){
-        console.error(`The Pizza name $(orderId.name) is not valid`)
-        
-        return
-    }
-    order.status = "Completed"
-    OrderHistory.push(order)
-    return order
+    return;
+  }
+  order.status = "Completed";
+  OrderHistory.push(order);
+  return order;
 }
 
-export function getPizzaDetail(identifier:string|number){
-    if(typeof identifier==="string" ){
-        return menu.find(pizza=>pizza.name.toLowerCase()===identifier.toLowerCase())
+export function getPizzaDetail(identifier: string | number): Pizza {
+  if (typeof identifier === "string") {
+    let selectedPizza = menu.find(
+      (pizza) => pizza.name.toLowerCase() === identifier.toLowerCase(),
+    );
+    if (!selectedPizza) {
+      throw new Error(`$(selectedPizza) is not found`);
     }
-    else if(typeof identifier=== "number"){
-            return menu.find(pizza=>pizza.id===identifier)
+    return selectedPizza;
+  } else if (typeof identifier === "number") {
+    let selectedPizza = menu.find((pizza) => pizza.id === identifier);
+    if (!selectedPizza) {
+      throw new Error(`$(selectedPizza) is not found`);
     }
-    else{
-        throw new TypeError("Perameter indentifier must be number or string")
-    }
-    
-
+    return selectedPizza;
+  } else {
+    throw new TypeError("Perameter indentifier must be number or string");
+  }
 }
-
-
-
 
 // addNewPizza({id:5,name:"Chiken Bacon Ranch", price: 12})
 // addNewPizza({id:6,name:"BBQ Chiken", price : 12})
