@@ -10,23 +10,27 @@ type Order = {
   status: "Completed" | "Not completed" | "ordered";
 };
 
-const menu: Pizza[] = [
-  { id: 1, name: "Margarita", price: 8 },
-  { id: 2, name: "Pepperpni", price: 10 },
-  { id: 3, name: "Hawaiian", price: 10 },
-  { id: 4, name: "Veggie", price: 9 },
-];
-
 let cashInRegister = 100;
 let nextOrderId = 1;
 const OrderQueue: Order[] = [];
 const OrderHistory: Order[] = [];
+let nextPizzaId= 1
 
-function addNewPizza(pizzaobj: Pizza) {
-  menu.push(pizzaobj);
+const menu: Pizza[] = [
+  { id: nextPizzaId++, name: "Margarita", price: 8 },
+  { id: nextPizzaId++, name: "Pepperpni", price: 10 },
+  { id: nextPizzaId++, name: "Hawaiian", price: 10 },
+  { id: nextPizzaId++, name: "Veggie", price: 9 },
+];
+
+
+
+function addNewPizza(pizzaobj: Pizza):void {
+  pizzaobj.id= nextPizzaId++
+  menu.push(pizzaobj)
 }
 
-function placeOrder(pizzaName: string) {
+function placeOrder(pizzaName: string):Order|undefined {
   const selectedPizza = menu.find((pizzaobj) => pizzaobj.name === pizzaName);
   if (!selectedPizza) {
     console.error(`$(pizzaName) does not exist in the menu`);
@@ -42,7 +46,7 @@ function placeOrder(pizzaName: string) {
   return newOrder;
 }
 
-function completeOrder(orderId: number) {
+function completeOrder(orderId: number):Order|undefined {
   const order = OrderQueue.find((order) => order.id === orderId);
   if (!order) {
     console.error(`The Pizza name $(orderId.name) is not valid`);
@@ -74,14 +78,16 @@ export function getPizzaDetail(identifier: string | number): Pizza {
   }
 }
 
-// addNewPizza({id:5,name:"Chiken Bacon Ranch", price: 12})
-// addNewPizza({id:6,name:"BBQ Chiken", price : 12})
-// addNewPizza({id:7,name:"Spicy Sausage", price : 11})
+addNewPizza({name:"Chiken Bacon Ranch", price: 12})
+addNewPizza({name:"BBQ Chiken", price : 12})
+addNewPizza({name:"Spicy Sausage", price : 11})
+addNewPizza({name:"Spicy Sausage with beef", price : 11})
+addNewPizza({name:"Spicy Sausage with mutton", price : 11})
 
-// placeOrder("Chiken Bacon Ranch")
-// completeOrder(1)
+placeOrder("Chiken Bacon Ranch")
+completeOrder(1)
 
-// console.log("Menu: ", menu)
+console.log("Menu: ", menu)
 // console.log("Cash in Register : ", cashInRegister)
 // console.log("Order Queue:  ", OrderQueue)
 // console.log("Order History: ",OrderHistory)

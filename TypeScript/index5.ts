@@ -1,15 +1,16 @@
-// type UserRole= 'admin'|'guest'|'member'
+type UserRole= 'admin'|'guest'|'member'
 
-// type User={
-//     username:string 
-//     role:UserRole
-// }
+type User={
+    id:number 
+    username:string 
+    role:UserRole
+}
 
-// const users:User[]=[
-//         {username:"jhon-doe", role:'member'},
-//         {username:"jhon-doe", role:'admin'},
-//         {username:"guest-user", role:'guest'}
-// ]
+const users:User[]=[
+        {id:1,username:"jhon-doe", role:'member'},
+        {id:2,username:"jhon-doe", role:'admin'},
+        {id:3,username:"guest-user", role:'guest'}
+]
 
 // function fetchUserDetails(username:string):User{ // declearing the return type by :User. this function will return a User 
 //     const user= users.find(user=> user.username=== username)
@@ -19,10 +20,24 @@
 //      return user
 // }
 
+function updateUser(id:number, updates:any){
+    const foundUser = users.find(user=>user.id===id)
+    if(!foundUser){
+        console.error("user not found")
+        return
+    }
 
-let value: any = 1 
-value.toLowerCase()
-value= "Hi"
-value.map()
-console.log(value)
+    Object.assign(foundUser,updates)
+
+}
+
+updateUser(1,{username:"new_john_doe"}); 
+
+console.log(users)
+
+// let value: any = 1 
+// value.toLowerCase()
+// value= "Hi"
+// value.map()
+// console.log(value)
 // should not use any 
