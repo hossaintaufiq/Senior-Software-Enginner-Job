@@ -2,6 +2,12 @@
     name: string 
     price: number
  }
+
+ type order={
+    id:number, 
+    pizza:Pizza , 
+    status:string
+ }
  
  
  const menu= [

@@ -14,7 +14,9 @@ type Person={
     //     city: string , 
     //     country: string
     // }
-    address:Address, 
+
+    // optional type we have to add a ? mark after that 
+    address?:Address, 
 }
 
 
@@ -40,3 +42,17 @@ let person2:Person= {
         country: "Bangladesh"
     }
 }
+
+let person3:Person= {
+    name: "joe", 
+    age: 66 , 
+    isStudent: false, 
+   
+}
+
+function displayInfo(person){
+    console.log(`${person.name} lives at ${person.address?.street}`)
+}
+
+
+displayInfo(person3)
