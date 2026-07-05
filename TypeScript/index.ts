@@ -3,12 +3,11 @@
     price: number
  }
 
- type order={
+ type Order={
     id:number, 
     pizza:Pizza , 
     status:string
  }
- 
  
  const menu= [
     {name: "Margarita", price: 8}, 
@@ -20,13 +19,12 @@
 
 let cashInRegister= 100
 let nextOrderId= 1 
-const OrderQueue= []
+const OrderQueue:Order[]= []
 
 
 function addNewPizza( pizzaobj:Pizza ){
     menu.push(pizzaobj)
 }
-
 
 function placeOrder(pizzaName:string){
     const selectedPizza= menu.find(pizzaobj=> pizzaobj.name=== pizzaName)
@@ -45,7 +43,11 @@ function placeOrder(pizzaName:string){
 
 function completeOrder(orderId: number){
     const order= OrderQueue.find(order =>order.id===orderId)
-    order.status= "Completed"
+    if(!order){
+        console.error(`The Pizza name $(orderId.name) is not valid`)
+        return
+    }
+    order.status = "Completed"
     return order
 }
 
@@ -53,7 +55,7 @@ addNewPizza({name:"Chiken Bacon Ranch", price: 12})
 addNewPizza({name:"BBQ Chiken", price : 12})
 addNewPizza({name:"Spicy Sausage", price : 11})
 
-placeOrder("Chicken Bacon Ranch")
+placeOrder("Chiken Bacon Ranch")
 completeOrder(1)
 
 console.log("Menu: ", menu)
