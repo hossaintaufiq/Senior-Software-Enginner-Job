@@ -24,10 +24,10 @@ export interface Product {
   category: string;
   price: number;
   discountPercentage: number;
-  rating: number|null;
+  rating: number|null|undefined;
   stock: number;
   tags: string[];
-  brand: string|null|null;
+  brand?: string|null|undefined;
   sku: string;
   weight: number;
   dimensions: Dimensions;
@@ -38,6 +38,6 @@ export interface Product {
   returnPolicy: string;
   minimumOrderQuantity: number;
   meta: Meta;
-  images: string[]|null;
-  thumbnail: string|null;
+  images: string[]|null|undefined;
+  thumbnail: string|null|undefined;
 }
