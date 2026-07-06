@@ -28,3 +28,21 @@ export const getProductById = async (req:Request, res:Response)=>{
         data:product, 
     })
 }
+
+export const searchProducts = async (req:Request, res:Response)=> {
+    const searchTerm = req.query.q as string 
+
+    if(!searchTerm){
+        return res.status(400).json({
+            success:false, 
+            message: 'Search query is required'
+        })
+    }
+    const products = await productServices.searchProducts(searchTerm); 
+
+    return res.status(200).json({
+        success: true, 
+        count: products.length, 
+        data: products, 
+    })
+}
