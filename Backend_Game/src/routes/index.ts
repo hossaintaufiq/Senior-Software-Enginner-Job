@@ -29,6 +29,6 @@ router.get('/', (req,res)=>{
 })
 
 router.use('/products',productRouter)
-// router.use('/products/:id',productRouter)
+
 
 export default router ; 
