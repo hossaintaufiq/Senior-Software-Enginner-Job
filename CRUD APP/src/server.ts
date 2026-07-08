@@ -1,11 +1,22 @@
-import app from './app.js'
-import dotenv from 'dotenv'
+
+// import app from './app.js' 
+// import dotenv from 'dotenv'
+
+// dotenv.config()
+
+// const PORT = process.env.PORT ||5000 
 
 
-dotenv.config()
-const PORT = process.env.PORT || 5000
+// app.listen(PORT, ()=>{
+//     console.log(`Backend is running on PORT : ${PORT}`)
+// })
 
 
-app.listen(PORT,()=>{
-    console.log(`Server is running on http://localhost:${PORT}`)
+// try 
+import app from './app.js' 
+
+const PORT= process.env.PORT ||5000
+
+app.listen(PORT, ()=>{
+    console.log(`Backend is running on port: ${PORT}`)
 })

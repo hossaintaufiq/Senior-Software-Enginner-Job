@@ -1,16 +1,14 @@
-import express , {Request,Response} from 'express' 
 
-const app = express()
+import express , {Request , Response } from 'express'
 
-//  middleware 
-app.use(express.json())
+const app = express(); 
 
+app.use(express.json()) 
 
-app.use('/',(req:Request, res:Response)=>{
+app.use('/', (req:Request, res:Response)=>{
     res.status(200).json({
-        success:true, 
-        message: `welcome to backend Server `
-
+        success: true, 
+        message: 'Backend is running Perfectly'
     })
 })
 
