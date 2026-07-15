@@ -7,6 +7,7 @@ import {
   SearchProducts,
   updateProduct,
 } from "../services/product.services.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
 
 // export const getProduct = async (req:Request, res:Response): Promise <void>=>{
 // const products = await getAllProducts();
@@ -21,37 +22,37 @@ import {
 // }
 
 // custom middleware
-export const getProduct = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-): Promise<void> => {
-  try {
-    const products = await getAllProducts();
-
-    res.status(200).json({
-      success: true,
-      message: "Products fetched Successfully",
-      total: products.length,
-      data: products,
-    });
-  } catch (err:unknown) {
-    next(err);
-  }
-};
-// asyncHandaler function instead of try and catch
-
-// export const getProduct = asyncHandler(async(req:Request,res:Response):Promise<void>=>{
-//         const products = await getAllProducts();
+// export const getProduct = async (
+//   req: Request,
+//   res: Response,
+//   next: NextFunction,
+// ): Promise<void> => {
+//   try {
+//     const products = await getAllProducts();
 
 //     res.status(200).json({
-//         success:200,
-//         message: 'Products fetched Successfully',
-//         total: products.length,
-//         data: products
-//     })
+//       success: true,
+//       message: "Products fetched Successfully",
+//       total: products.length,
+//       data: products,
+//     });
+//   } catch (err:unknown) {
+//     next(err);
+//   }
+// };
+// asyncHandaler function instead of try and catch
 
-// })
+export const getProduct = asyncHandler(async(req:Request,res:Response):Promise<void>=>{
+        const products = await getAllProducts();
+
+    res.status(200).json({
+        success:true,
+        message: 'Products fetched Successfully',
+        total: products.length,
+        data: products
+    })
+
+})
 
 export const getSingleProduct = async (
   req: Request,
