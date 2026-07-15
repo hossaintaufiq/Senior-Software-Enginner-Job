@@ -8,6 +8,7 @@ import {
   updateProduct,
 } from "../services/product.services.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
+import { sendResponse } from "../utils/sendResponse.js";
 
 // export const getProduct = async (req:Request, res:Response): Promise <void>=>{
 // const products = await getAllProducts();
@@ -42,17 +43,25 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 // };
 // asyncHandaler function instead of try and catch
 
-export const getProduct = asyncHandler(async(req:Request,res:Response):Promise<void>=>{
-        const products = await getAllProducts();
+export const getProduct = asyncHandler(
+  async (req: Request, res: Response): Promise<void> => {
+    const products = await getAllProducts();
 
-    res.status(200).json({
-        success:true,
-        message: 'Products fetched Successfully',
-        total: products.length,
-        data: products
-    })
+    // res.status(200).json({
+    //     success:true,
+    //     message: 'Products fetched Successfully',
+    //     total: products.length,
+    //     data: products
+    // })
 
-})
+    sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      message: "product fetched Successfully",
+      data: products,
+    });
+  },
+);
 
 export const getSingleProduct = async (
   req: Request,
