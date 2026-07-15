@@ -29,3 +29,13 @@ console.log(deleted)
 // map() → Shape or transform response data (e.g., hide sensitive fields or add computed values).
 // some() → Check for duplicates before creating a new record.
 // every() → Validate that all items meet a condition.
+
+
+
+// before db
+// Global error handling middleware
+// 404 Not Found middleware
+// Consistent response format
+// Pagination (?page=1&limit=10)
+// Filtering (?category=smartphones)
+// Sorting (?sort=price&order=asc)
