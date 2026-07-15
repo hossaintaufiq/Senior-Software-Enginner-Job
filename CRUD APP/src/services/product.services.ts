@@ -18,3 +18,12 @@
 // export const SearchProducts = async (title: string ): Promise<Product[]> =>{
 //     return products.products.filter(product=>product.title.toLowerCase().includes(title.toLowerCase())) 
 // }
+
+export const counter= (): number[]=>{
+    let array=[]
+    for (let index = 0; index < 10; index++) {
+        array.push(index);
+        
+    }
+    return array
+}

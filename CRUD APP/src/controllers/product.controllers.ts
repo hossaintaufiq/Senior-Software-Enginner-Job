@@ -1,4 +1,5 @@
 import { Request,Response } from "express";
+import { counter } from "../services/product.services.js";
 // import { getAllProducts,getProductsById, SearchProducts } from "../services/product.services.js";
 
 
@@ -47,9 +48,12 @@ import { Request,Response } from "express";
 // }
 
 export const routeTest = async(req:Request,res:Response)=>{
+
+    const numbers= counter()
     res.status(202).json({
         success:true, 
-        message: "running from the controllers"
+        message: "running from the controllers",
+        data:numbers
     })
 }
 

@@ -12,15 +12,11 @@
 
 // export default router;
 
-import { Router ,Request,Response} from "express";
+import { Router } from "express";
+import { routeTest } from "../controllers/product.controllers.js";
 
 const router= Router()
 
-router.get('/route',(req:Request,res:Response)=>{
-    res.status(202).json({
-        success: true, 
-        message: 'running form the route path'
-    })
-})
+router.get('/route',routeTest)
 
 export default router
