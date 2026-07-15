@@ -1,6 +1,5 @@
 import { Request,Response } from "express";
-
-import { getAllProducts,getProductsById, SearchProducts } from "../services/product.services.js";
+import { createProduct, deleteProduct, getAllProducts,getProductsById, SearchProducts, updateProduct} from "../services/product.services.js";
 
 
 export const getProduct = async (req:Request, res:Response): Promise <void>=>{
@@ -47,4 +46,53 @@ export const searchProductByName= async (req:Request, res:Response) : Promise <v
     })
 }
 
+export const insertProduct= async(req:Request,res:Response):Promise<void>=>{
+    const product = await createProduct(req.body)
 
+    res.status(201).json({
+        success: true, 
+        message: "product created successfully", 
+        data:product
+    })
+
+}
+
+export const updateSingleProduct = async(req:Request, res:Response):Promise<void> =>{
+    const id = Number(req.params.id) 
+
+    const updatedProduct = await updateProduct(id,req.body)
+
+    if(!updatedProduct){
+        res.status(404).json({
+            success:false, 
+            message:'Product not found', 
+        })
+        return
+    }
+
+    res.status(200).json({
+        success:true, 
+        message:'product updated successfully', 
+        data:updateProduct
+    })
+}
+
+// delete method 
+export const deleteSingleProduct = async(req:Request, res:Response):Promise<void> =>{
+    const id = Number(req.params.id)
+
+    const deletedProduct = await deleteProduct(id)
+
+    if(!deleteProduct){
+        res.status(404).json({
+            success:false, 
+            message: 'Product not found '
+        })
+        return 
+    }
+    res.status(200).json({
+        success: true , 
+        message: 'product deleted successfully ', 
+        data: deleteProduct
+    })
+}
