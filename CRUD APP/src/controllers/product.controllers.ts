@@ -54,6 +54,10 @@ export const getProduct = asyncHandler(
     //     data: products
     // })
 
+
+
+    // sendResponse function is from utils/sendResponse.ts
+    
     sendResponse(res, {
       statusCode: 200,
       success: true,
