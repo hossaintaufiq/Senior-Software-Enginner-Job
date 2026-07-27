@@ -1,0 +1,19 @@
+npm init -y                                       -> initialing node 
+npm i express                                     ->installing express
+npm i --save-dev typescript @types/express       ->installing ts in dev dependencies
+
+npm i --save-dev nodemon                          ->installing nodemon for running server
+npx tsc --init                                    ->typescript pakage
+npm install -D tsx
+
+some changes . to the pakage.json 
+"type": "module", 
+
+pakage.json ->Script 
+{
+  "scripts": {
+    "dev": "tsx watch src/server.ts",                ->root folder link 
+    "start": "node dist/server.js",
+    "build": "tsc"
+  }
+}
